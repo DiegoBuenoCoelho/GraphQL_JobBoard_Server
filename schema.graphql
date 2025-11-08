@@ -1,3 +1,21 @@
 type Query {
-    greeting: String
+    greetings: String
+    job: Job
+    jobs: [Job!]
+    meuTime: MeuTime
+}
+
+type MeuTime {
+    name: String
+    city: String
+}
+
+type Job {
+    id: ID!
+    title: String!
+    description: String
+    # date: String!
+    date: String
+    meuTime: String
+    meuTimao2: MeuTime
 }

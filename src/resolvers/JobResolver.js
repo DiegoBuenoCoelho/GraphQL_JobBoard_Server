@@ -1,0 +1,33 @@
+import { getJobs, getJob } from "../../db/jobs.js";
+
+export const JobResolverQuery = {
+    Query: {
+        job: async (id) => {
+            return await getJob(id);
+            // return {
+            //     id: 34234,
+            //     title: "sdfsd",
+            //     description: "sdkfjsdfsdjkfhsjkdbfsd",
+            // };
+        },
+
+        jobs: () => getJobs(),
+    },
+};
+
+export const JobResolver = {
+    Job: {
+        date: (job) => toIsoDate(job.createdAt),
+        meuTime: (job) => job.title + " Fluminense",
+        meuTimao2: () => {
+            return {
+                name: "Fluminense",
+                city: "Kissimmee",
+            };
+        },
+    },
+};
+
+const toIsoDate = (value) => {
+    return value.slice(0, "yyyy-mm-dd".length);
+};

@@ -4,7 +4,11 @@ import cors from "cors";
 import express from "express";
 import { readFile } from "node:fs/promises";
 import { authMiddleware, handleLogin } from "./auth/auth.js";
-import { _QueryResolver } from "./resolvers/_QueryResolver.js";
+import {
+    _QueryResolver,
+    _QueryResolverQuery,
+} from "./resolvers/_QueryResolver.js";
+import { JobResolver, JobResolverQuery } from "./resolvers/JobResolver.js";
 
 const app = express();
 app.use(cors(), express.json(), authMiddleware);
@@ -13,7 +17,12 @@ app.post("/login", handleLogin);
 
 const typeDefs = await readFile("./schema.graphql", "utf8");
 const resolvers = {
+    Query: {
+        ..._QueryResolverQuery.Query,
+        ...JobResolverQuery.Query,
+    },
     ..._QueryResolver,
+    ...JobResolver,
 };
 
 const apolloServer = new ApolloServer({
@@ -21,7 +30,6 @@ const apolloServer = new ApolloServer({
     resolvers,
     playground: true,
 });
-// apolloServer.applyMiddleware({ app });
 
 await apolloServer.start();
 app.use("/graphql", apolloMiddleware(apolloServer));

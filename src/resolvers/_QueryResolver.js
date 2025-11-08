@@ -1,5 +1,13 @@
-export const _QueryResolver = {
+export const _QueryResolverQuery = {
     Query: {
-        greeting: () => "Hello Abestado",
+        greetings: () => "Opaaaa Doidado",
+        meuTime: () => {
+            return {
+                name: "Flu",
+                city: "Rio",
+            };
+        },
     },
 };
+
+export const _QueryResolver = {};
