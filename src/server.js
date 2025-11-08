@@ -9,6 +9,10 @@ import {
     _QueryResolverQuery,
 } from "./resolvers/_QueryResolver.js";
 import { JobResolver, JobResolverQuery } from "./resolvers/JobResolver.js";
+import {
+    CompanyResolver,
+    CompanyResolverQuery,
+} from "./resolvers/CompanyResolver.js";
 
 const app = express();
 app.use(cors(), express.json(), authMiddleware);
@@ -19,10 +23,12 @@ const typeDefs = await readFile("./schema.graphql", "utf8");
 const resolvers = {
     Query: {
         ..._QueryResolverQuery.Query,
-        ...JobResolverQuery.Query,
+        ...JobResolverQuery,
+        ...CompanyResolverQuery,
     },
     ..._QueryResolver,
     ...JobResolver,
+    ...CompanyResolver,
 };
 
 const apolloServer = new ApolloServer({

@@ -3,6 +3,7 @@ type Query {
     job: Job
     jobs: [Job!]
     meuTime: MeuTime
+    company: Company
 }
 
 type MeuTime {
@@ -10,12 +11,24 @@ type MeuTime {
     city: String
 }
 
+type Company {
+    id: ID!
+    name: String!
+    description: String
+    president: String
+}
+
+"""
+There you go: Job - Opening Position
+"""
 type Job {
     id: ID!
     title: String!
     description: String
-    # date: String!
+    """
+    ___Date___ of Creation
+    """
     date: String
-    meuTime: String
     meuTimao2: MeuTime
+    company: Company!
 }
