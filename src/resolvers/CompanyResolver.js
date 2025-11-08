@@ -1,9 +1,15 @@
 import { getCompany } from "../../db/companies.js";
-import { getJobByCompanyId, getJobs } from "../../db/jobs.js";
+import { getJobByCompanyId } from "../../db/jobs.js";
+
+import { ThrowError_NotFound } from "./_ERRORS_Resolvers.js";
 
 export const CompanyResolverQuery = {
     company: async (_root, { id }) => {
-        return await getCompany(id);
+        const company = await getCompany(id);
+        if (!company) {
+            ThrowError_NotFound(`No Company Found with id [${id}]`);
+        }
+        return company;
     },
 };
 
