@@ -1,9 +1,10 @@
 type Query {
+    me: User
     greetings: String
-    job: Job
+    job(id: ID!): Job
     jobs: [Job!]
     meuTime: MeuTime
-    company: Company
+    company(id: ID!): Company
 }
 
 type MeuTime {
@@ -16,6 +17,7 @@ type Company {
     name: String!
     description: String
     president: String
+    jobs: [Job!]
 }
 
 """
@@ -31,4 +33,9 @@ type Job {
     date: String
     meuTimao2: MeuTime
     company: Company!
+}
+
+type User {
+    name: String!
+    friends: [User!]
 }

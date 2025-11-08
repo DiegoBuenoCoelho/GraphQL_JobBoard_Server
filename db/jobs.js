@@ -13,6 +13,10 @@ export async function getJob(id) {
     return await getJobTable().first().where({ id });
 }
 
+export async function getJobByCompanyId(companyId) {
+    return await getJobTable().select().where({ companyId });
+}
+
 export async function createJob({ companyId, title, description }) {
     const job = {
         id: obGenerateId.generateId(),

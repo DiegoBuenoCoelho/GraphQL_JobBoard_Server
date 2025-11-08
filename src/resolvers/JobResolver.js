@@ -2,13 +2,8 @@ import { getCompany } from "../../db/companies.js";
 import { getJobs, getJob } from "../../db/jobs.js";
 
 export const JobResolverQuery = {
-    job: async (id) => {
+    job: async (_root, { id }) => {
         return await getJob(id);
-        // return {
-        //     id: 34234,
-        //     title: "sdfsd",
-        //     description: "sdkfjsdfsdjkfhsjkdbfsd",
-        // };
     },
 
     jobs: () => getJobs(),

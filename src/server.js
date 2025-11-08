@@ -13,6 +13,7 @@ import {
     CompanyResolver,
     CompanyResolverQuery,
 } from "./resolvers/CompanyResolver.js";
+import { UserResolver, UserResolverQuery } from "./resolvers/UserResolver.js";
 
 const app = express();
 app.use(cors(), express.json(), authMiddleware);
@@ -23,10 +24,12 @@ const typeDefs = await readFile("./schema.graphql", "utf8");
 const resolvers = {
     Query: {
         ..._QueryResolverQuery.Query,
+        ...UserResolverQuery,
         ...JobResolverQuery,
         ...CompanyResolverQuery,
     },
     ..._QueryResolver,
+    ...UserResolver,
     ...JobResolver,
     ...CompanyResolver,
 };
