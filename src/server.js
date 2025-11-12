@@ -14,6 +14,7 @@ import {
     CompanyResolverQuery,
 } from "./resolvers/CompanyResolver.js";
 import { UserResolver, UserResolverQuery } from "./resolvers/UserResolver.js";
+import { _MutationResolverMutation } from "./resolvers/_MutationResolver.js";
 
 const app = express();
 app.use(cors(), express.json(), authMiddleware);
@@ -27,6 +28,9 @@ const resolvers = {
         ...UserResolverQuery,
         ...JobResolverQuery,
         ...CompanyResolverQuery,
+    },
+    Mutation: {
+        ..._MutationResolverMutation,
     },
     ..._QueryResolver,
     ...UserResolver,

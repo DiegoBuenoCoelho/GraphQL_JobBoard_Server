@@ -1,4 +1,4 @@
-import { getCompany } from "../../db/companies.js";
+import { getCompanies, getCompany } from "../../db/companies.js";
 import { getJobByCompanyId } from "../../db/jobs.js";
 
 import { ThrowError_NotFound } from "./_ERRORS_Resolvers.js";
@@ -11,6 +11,8 @@ export const CompanyResolverQuery = {
         }
         return company;
     },
+
+    companies: () => getCompanies(),
 };
 
 export const CompanyResolver = {

@@ -18,8 +18,10 @@ export async function getJobByCompanyId(companyId) {
 }
 
 export async function createJob({ companyId, title, description }) {
+    const newId = obGenerateId.generateId();
+    console.log("createJob ==>", { newId, companyId, title, description });
     const job = {
-        id: obGenerateId.generateId(),
+        id: newId,
         companyId,
         title,
         description,

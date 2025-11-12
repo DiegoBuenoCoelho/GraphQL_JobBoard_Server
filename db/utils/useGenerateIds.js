@@ -5,7 +5,10 @@ const useGenerateIds = () => {
         "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     const generateId = () => {
-        return customAlphabet(ALPHABET, 12);
+        const nanoId = customAlphabet(ALPHABET, 12);
+        const idGenerated = nanoId();
+        console.log("generateId", { idGenerated });
+        return idGenerated;
     };
 
     return { generateId };

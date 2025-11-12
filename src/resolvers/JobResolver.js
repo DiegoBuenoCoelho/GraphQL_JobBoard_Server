@@ -17,12 +17,12 @@ export const JobResolverQuery = {
 export const JobResolver = {
     Job: {
         date: (job) => toIsoDate(job.createdAt),
-        meuTimao2: () => {
-            return {
-                name: "Fluminense",
-                city: "Kissimmee",
-            };
-        },
+        // meuTimao2: () => {
+        //     return {
+        //         name: "Fluminense",
+        //         city: "Kissimmee",
+        //     };
+        // },
         company: (job) => getCompany(job.companyId),
     },
 };

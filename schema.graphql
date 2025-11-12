@@ -5,6 +5,7 @@ type Query {
     jobs: [Job!]
     meuTime: MeuTime
     company(id: ID!): Company
+    companies: [Company!]
 }
 
 type MeuTime {
@@ -31,11 +32,15 @@ type Job {
     ___Date___ of Creation
     """
     date: String
-    meuTimao2: MeuTime
     company: Company!
 }
 
 type User {
     name: String!
     friends: [User!]
+}
+
+# ---------------------------------------
+type Mutation {
+    createJob(title: String!, description: String): Job
 }
