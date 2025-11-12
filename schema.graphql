@@ -40,7 +40,13 @@ type User {
     friends: [User!]
 }
 
-# ---------------------------------------
+# --------------------------- INPUT TYPES
+input CreateJobInput {
+    title: String!
+    description: String
+}
+
+# --------------------------- MUTATIONS
 type Mutation {
-    createJob(title: String!, description: String): Job
+    createJob(input: CreateJobInput!): Job
 }

@@ -1,5 +1,5 @@
 import { getCompany } from "../../db/companies.js";
-import { getJobs, getJob } from "../../db/jobs.js";
+import { getJobs, getJob, createJob } from "../../db/jobs.js";
 import { ThrowError_NotFound } from "./_ERRORS_Resolvers.js";
 
 export const JobResolverQuery = {
@@ -12,6 +12,19 @@ export const JobResolverQuery = {
     },
 
     jobs: () => getJobs(),
+};
+
+export const JobResolverMutation = {
+    createJob: (_root, { input }) => {
+        const companyId = "Gu7QW9LcnF5d"; //hardcoded at this moment
+        const { title, description } = input;
+        console.log({ companyId, title, description });
+        return createJob({
+            companyId: companyId,
+            title: title,
+            description: description,
+        });
+    },
 };
 
 export const JobResolver = {

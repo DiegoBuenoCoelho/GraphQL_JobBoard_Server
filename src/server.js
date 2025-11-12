@@ -8,7 +8,11 @@ import {
     _QueryResolver,
     _QueryResolverQuery,
 } from "./resolvers/_QueryResolver.js";
-import { JobResolver, JobResolverQuery } from "./resolvers/JobResolver.js";
+import {
+    JobResolver,
+    JobResolverMutation,
+    JobResolverQuery,
+} from "./resolvers/JobResolver.js";
 import {
     CompanyResolver,
     CompanyResolverQuery,
@@ -30,7 +34,7 @@ const resolvers = {
         ...CompanyResolverQuery,
     },
     Mutation: {
-        ..._MutationResolverMutation,
+        ...JobResolverMutation,
     },
     ..._QueryResolver,
     ...UserResolver,
