@@ -1,5 +1,11 @@
 import { getCompany } from "../../db/companies.js";
-import { getJobs, getJob, createJob } from "../../db/jobs.js";
+import {
+    getJobs,
+    getJob,
+    createJob,
+    deleteJob,
+    updateJob,
+} from "../../db/jobs.js";
 import { ThrowError_NotFound } from "./_ERRORS_Resolvers.js";
 
 export const JobResolverQuery = {
@@ -18,24 +24,40 @@ export const JobResolverMutation = {
     createJob: (_root, { input }) => {
         const companyId = "Gu7QW9LcnF5d"; //hardcoded at this moment
         const { title, description } = input;
-        console.log({ companyId, title, description });
+        // console.log({ companyId, title, description });
         return createJob({
             companyId: companyId,
             title: title,
             description: description,
         });
     },
+    deleteJob: async (_root, { input }) => {
+        const { id } = input;
+        console.log("Deleting Job ", id);
+        try {
+            return await deleteJob(id);
+        } catch {
+            ThrowError_NotFound(`No Job Found with id [${id}]`);
+        }
+    },
+    updateJob: async (_root, { input }) => {
+        const { id, title, description } = input;
+        // console.log({ id, title, description });
+        try {
+            return await updateJob({
+                id: id,
+                title: title,
+                description: description,
+            });
+        } catch {
+            ThrowError_NotFound(`No Job Found with id [${id}]`);
+        }
+    },
 };
 
 export const JobResolver = {
     Job: {
         date: (job) => toIsoDate(job.createdAt),
-        // meuTimao2: () => {
-        //     return {
-        //         name: "Fluminense",
-        //         city: "Kissimmee",
-        //     };
-        // },
         company: (job) => getCompany(job.companyId),
     },
 };
