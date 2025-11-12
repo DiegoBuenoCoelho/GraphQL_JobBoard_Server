@@ -58,5 +58,5 @@ input UpdateJobInput {
 type Mutation {
     createJob(input: CreateJobInput!): Job
     deleteJob(input: DeleteJobInput!): Job
-    updateJob(input: UpdateJobInput): Job
+    updateJob(input: UpdateJobInput!): Job
 }

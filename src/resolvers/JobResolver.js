@@ -33,7 +33,6 @@ export const JobResolverMutation = {
     },
     deleteJob: async (_root, { input }) => {
         const { id } = input;
-        console.log("Deleting Job ", id);
         try {
             return await deleteJob(id);
         } catch {
@@ -42,7 +41,6 @@ export const JobResolverMutation = {
     },
     updateJob: async (_root, { input }) => {
         const { id, title, description } = input;
-        // console.log({ id, title, description });
         try {
             return await updateJob({
                 id: id,
