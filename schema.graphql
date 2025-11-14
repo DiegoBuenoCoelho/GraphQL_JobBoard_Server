@@ -33,6 +33,7 @@ type Job {
     """
     date: String
     company: Company!
+    cu: String
 }
 
 type User {

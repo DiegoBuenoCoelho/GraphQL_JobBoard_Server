@@ -6,10 +6,13 @@ import {
     deleteJob,
     updateJob,
 } from "../../db/jobs.js";
-import { ThrowError_NotFound } from "./_ERRORS_Resolvers.js";
+import {
+    ThrowError_NotFound,
+    ThrowError_Unauthorized,
+} from "./_ERRORS_Resolvers.js";
 
 export const JobResolverQuery = {
-    job: async (_root, { id }) => {
+    job: async (_root, { id }, { user }) => {
         const job = await getJob(id);
         if (!job) {
             ThrowError_NotFound(`No Job Found with id [${id}]`);
@@ -21,35 +24,42 @@ export const JobResolverQuery = {
 };
 
 export const JobResolverMutation = {
-    createJob: (_root, { input }) => {
-        const companyId = "Gu7QW9LcnF5d"; //hardcoded at this moment
+    createJob: async (_root, { input }, { user }) => {
+        if (!user) {
+            ThrowError_Unauthorized(
+                "You don't have authorization for that, my friend!"
+            );
+        }
         const { title, description } = input;
-        // console.log({ companyId, title, description });
         return createJob({
-            companyId: companyId,
+            companyId: user.companyId,
             title: title,
             description: description,
         });
     },
-    deleteJob: async (_root, { input }) => {
+    deleteJob: async (_root, { input }, { user }) => {
+        if (!user) {
+            ThrowError_Unauthorized(
+                "You don't have authorization for that, my friend!"
+            );
+        }
         const { id } = input;
-        try {
-            return await deleteJob(id);
-        } catch {
-            ThrowError_NotFound(`No Job Found with id [${id}]`);
-        }
+        return await deleteJob(id);
     },
-    updateJob: async (_root, { input }) => {
-        const { id, title, description } = input;
-        try {
-            return await updateJob({
-                id: id,
-                title: title,
-                description: description,
-            });
-        } catch {
-            ThrowError_NotFound(`No Job Found with id [${id}]`);
+    updateJob: async (_root, { input }, { user }) => {
+        if (!user) {
+            ThrowError_Unauthorized(
+                "You don't have authorization for that, my friend!"
+            );
         }
+        console.log(`[updateJob] user: `, user);
+        const { id, title, description } = input;
+        return await updateJob({
+            id: id,
+            title: title,
+            description: description,
+            companyId: user.companyId,
+        });
     },
 };
 
@@ -57,6 +67,7 @@ export const JobResolver = {
     Job: {
         date: (job) => toIsoDate(job.createdAt),
         company: (job) => getCompany(job.companyId),
+        cu: (_) => "BUNDA",
     },
 };
 

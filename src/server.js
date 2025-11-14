@@ -19,6 +19,7 @@ import {
 } from "./resolvers/CompanyResolver.js";
 import { UserResolver, UserResolverQuery } from "./resolvers/UserResolver.js";
 import { _MutationResolverMutation } from "./resolvers/_MutationResolver.js";
+import { getUser } from "../db/users.js";
 
 const app = express();
 app.use(cors(), express.json(), authMiddleware);
@@ -48,8 +49,19 @@ const apolloServer = new ApolloServer({
     playground: true,
 });
 
+const getContextMiddleware = async ({ req }) => {
+    if (req.auth) {
+        const user = await getUser(req.auth.sub);
+        return { user };
+    }
+    return {};
+};
+
 await apolloServer.start();
-app.use("/graphql", apolloMiddleware(apolloServer));
+app.use(
+    "/graphql",
+    apolloMiddleware(apolloServer, { context: getContextMiddleware })
+);
 
 const PORT = 3001;
 app.listen({ port: PORT }, () => {

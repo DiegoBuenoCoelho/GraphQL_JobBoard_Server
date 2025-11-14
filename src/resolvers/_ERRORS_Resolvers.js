@@ -7,3 +7,11 @@ export const ThrowError_NotFound = (message) => {
         },
     });
 };
+
+export const ThrowError_Unauthorized = (message) => {
+    throw new GraphQLError(message, {
+        extensions: {
+            code: `CUSTOM_UNAUTHORIZED`,
+        },
+    });
+};
