@@ -7,8 +7,8 @@ const getJobTable = () => connection.table("job");
 const obGenerateId = useGenerateIds();
 
 export async function getJobs() {
-    const jobs = await getJobTable().select();
-    console.log({ jobs });
+    const jobs = await getJobTable().select().orderBy("createdAt", "desc");
+    // console.log({ jobs });
     return jobs;
 }
 
