@@ -20,7 +20,7 @@ export const JobResolverQuery = {
         return job;
     },
 
-    jobs: () => getJobs(),
+    jobs: (_root, { limit, offset }) => getJobs(limit, offset),
 };
 
 export const JobResolverMutation = {

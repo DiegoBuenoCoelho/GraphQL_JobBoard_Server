@@ -2,7 +2,7 @@ type Query {
     me: User
     greetings: String
     job(id: ID!): Job
-    jobs: [Job!]
+    jobs(limit: Int, offset: Int): [Job!]
     meuTime: MeuTime
     company(id: ID!): Company
     companies: [Company!]

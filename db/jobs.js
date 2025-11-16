@@ -6,9 +6,15 @@ const { connection } = useConnection();
 const getJobTable = () => connection.table("job");
 const obGenerateId = useGenerateIds();
 
-export async function getJobs() {
-    const jobs = await getJobTable().select().orderBy("createdAt", "desc");
-    // console.log({ jobs });
+export async function getJobs(limit, offset) {
+    const query = getJobTable().select().orderBy("createdAt", "desc");
+    if (limit) {
+        query.limit(limit);
+    }
+    if (offset) {
+        query.offset(offset);
+    }
+    const jobs = await query;
     return jobs;
 }
 
