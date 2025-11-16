@@ -9,6 +9,11 @@ const useConnection = () => {
         useNullAsDefault: true,
     });
 
+    connection.on("query", (data) => {
+        console.warn("[db]: ", data?.sql);
+        if (data?.bindings) console.warn("[db bindings]: ", data?.bindings);
+    });
+
     return {
         connection,
     };
