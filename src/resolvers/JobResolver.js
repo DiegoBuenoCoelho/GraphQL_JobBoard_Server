@@ -5,6 +5,7 @@ import {
     createJob,
     deleteJob,
     updateJob,
+    getCountJobs,
 } from "../../db/jobs.js";
 import {
     ThrowError_NotFound,
@@ -20,7 +21,14 @@ export const JobResolverQuery = {
         return job;
     },
 
-    jobs: (_root, { limit, offset }) => getJobs(limit, offset),
+    jobs: async (_root, { limit, offset }) => {
+        const items = await getJobs(limit, offset);
+        const totalCount = await getCountJobs();
+        return {
+            items,
+            totalCount,
+        };
+    },
 };
 
 export const JobResolverMutation = {

@@ -6,6 +6,11 @@ const { connection } = useConnection();
 const getJobTable = () => connection.table("job");
 const obGenerateId = useGenerateIds();
 
+export const getCountJobs = async () => {
+    const { count } = await getJobTable().first().count("* as count");
+    return count;
+};
+
 export async function getJobs(limit, offset) {
     const query = getJobTable().select().orderBy("createdAt", "desc");
     if (limit) {

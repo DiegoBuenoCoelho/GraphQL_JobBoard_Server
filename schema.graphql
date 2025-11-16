@@ -2,10 +2,15 @@ type Query {
     me: User
     greetings: String
     job(id: ID!): Job
-    jobs(limit: Int, offset: Int): [Job!]
+    jobs(limit: Int, offset: Int): JobsSubList
     meuTime: MeuTime
     company(id: ID!): Company
     companies: [Company!]
+}
+
+type JobsSubList {
+    items: [Job!]!
+    totalCount: Int!
 }
 
 type MeuTime {
